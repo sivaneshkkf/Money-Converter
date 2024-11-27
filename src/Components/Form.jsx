@@ -20,7 +20,7 @@ const Form = () => {
   const [indexTo, setIndexTo] = useState(null);
 
   const ulRef = useRef(null);
-  const toUlRef = useRef(null)
+  const toUlRef = useRef(null);
 
   const { countryData, valData } = useCountry(fromData);
 
@@ -39,19 +39,17 @@ const Form = () => {
     setToArray(obj);
   }, [valData]);
 
-
-//   search type
+  //   search type
   useEffect(() => {
     function handleKeyDown(e) {
-      e.preventDefault()
       if (openDropDownFrom) {
         const find = e.key.toUpperCase();
         const pattern = /^[a-zA-Z]$/;
 
         if (pattern.test(find)) {
-            setSearchFrom((prev) => [...prev, find]);
+          setSearchFrom((prev) => [...prev, find]);
         } else if (e.key === "Backspace") {
-            setSearchFrom((prev) => prev.slice(0, -1)); // Removes the last element
+          setSearchFrom((prev) => prev.slice(0, -1)); // Removes the last element
         }
       }
     }
@@ -60,6 +58,7 @@ const Form = () => {
 
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [openDropDownFrom]);
+
   useEffect(() => {
     function handleKeyDown(e) {
       if (openDropDownTo) {
@@ -67,9 +66,9 @@ const Form = () => {
         const pattern = /^[a-zA-Z]$/;
 
         if (pattern.test(find)) {
-            setSearchTo((prev) => [...prev, find]);
+          setSearchTo((prev) => [...prev, find]);
         } else if (e.key === "Backspace") {
-            setSearchTo((prev) => prev.slice(0, -1)); // Removes the last element
+          setSearchTo((prev) => prev.slice(0, -1)); // Removes the last element
         }
       }
     }
@@ -94,27 +93,30 @@ const Form = () => {
     //console.log(arrindex)
   }, [searchTo]);
 
-//   initial index
-useEffect(() => {
-    const arrIndex = fromArray.findIndex((data) => data.toUpperCase().includes(fromData.toUpperCase()))
-    console.log(fromData,arrIndex)
-    setIndexFrom(arrIndex)
-},[fromData,openDropDownFrom])
+  //   initial index
+  useEffect(() => {
+    const arrIndex = fromArray.findIndex((data) =>
+      data.toUpperCase().includes(fromData.toUpperCase())
+    );
+    console.log(fromData, arrIndex);
+    setIndexFrom(arrIndex);
+  }, [fromData, openDropDownFrom]);
 
-useEffect(() => {
-  if(toData){
-    const arrIndex = fromArray.findIndex((data) => data.toUpperCase().includes(toData.toUpperCase()))
-    console.log(toData,arrIndex)
-    setIndexTo(arrIndex)
-  }
-},[toData,openDropDownTo])
-
+  useEffect(() => {
+    if (toData) {
+      const arrIndex = fromArray.findIndex((data) =>
+        data.toUpperCase().includes(toData.toUpperCase())
+      );
+      console.log(toData, arrIndex);
+      setIndexTo(arrIndex);
+    }
+  }, [toData, openDropDownTo]);
 
   //   Auto scroll
   useEffect(() => {
     // Scroll to the currently selected item
     if (ulRef.current) {
-        console.log(indexFrom)
+      console.log(indexFrom);
       const selectedItem = ulRef.current.children[indexFrom];
       if (selectedItem) {
         selectedItem.scrollIntoView({
@@ -128,11 +130,11 @@ useEffect(() => {
 
   useEffect(() => {
     // Scroll to the currently selected item
-    console.log(indexTo)
+    console.log(indexTo);
     if (toUlRef.current) {
-        console.log(indexTo)
+      console.log(indexTo);
       const selectedItem = toUlRef.current.children[indexTo];
-      console.log(selectedItem)
+      console.log(selectedItem);
       if (selectedItem) {
         selectedItem.scrollIntoView({
           //behavior: "smooth", // Smooth scroll
@@ -143,10 +145,8 @@ useEffect(() => {
     }
   }, [indexTo]);
 
-
-
   function handleConvert() {
-    console.log(toData)
+    console.log(toData);
     if (!toData) return;
     const selectedAmount = Number(toArray[toData.trim()]);
     const amnt = amount * selectedAmount;
@@ -171,7 +171,7 @@ useEffect(() => {
             id="from"
             open={openDropDownFrom}
             setOpen={setOpenDropDownFrom}
-            secondSetOpen = {setOpenDropDownTo}
+            secondSetOpen={setOpenDropDownTo}
             selectedData={fromData}
             setSelectedData={setFromData}
             search={searchFrom.join("")}
@@ -187,7 +187,7 @@ useEffect(() => {
             id="to"
             open={openDropDownTo}
             setOpen={setOpenDropDownTo}
-            secondSetOpen = {setOpenDropDownFrom}
+            secondSetOpen={setOpenDropDownFrom}
             selectedData={toData}
             setSelectedData={setToData}
             search={searchTo.join("")}
@@ -216,7 +216,7 @@ useEffect(() => {
   );
 };
 
-function Input({ id, type = "text", placeholder, label, amount, setAmount }) {
+function Input({ id, type, placeholder, label, amount, setAmount }) {
   return (
     <div>
       <label htmlFor={id} className="w-full text-black">
@@ -255,9 +255,9 @@ function DropDown({
       <div
         className="bg-gray-200 py-1 px-4 rounded flex items-center justify-between"
         onClick={() => {
-            setOpen(!open)
-            secondSetOpen(false)
-            setIndex(null)
+          setOpen(!open);
+          secondSetOpen(false);
+          setIndex(null);
         }}
       >
         <p>
